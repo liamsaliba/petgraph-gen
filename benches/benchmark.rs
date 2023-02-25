@@ -28,6 +28,13 @@ fn criterion_benchmark(c: &mut Criterion) {
         })
     });
 
+    c.bench_function("line_graph", |b| {
+        b.iter(|| {
+            let graph: Graph<(), ()> = petgraph_gen::line_graph(black_box(100000));
+            graph
+        })
+    });
+
     c.bench_function("barabasi_albert_graph", |b| {
         b.iter(|| {
             let graph: Graph<(), ()> =
