@@ -4,11 +4,13 @@
 mod barabasi_albert;
 mod classic;
 mod common;
+mod complete;
 mod erdos_renyi;
+mod star;
 
 pub use self::barabasi_albert::barabasi_albert_graph;
-pub use self::classic::complete_graph;
 pub use self::classic::empty_graph;
-pub use self::classic::star_graph;
+pub use self::complete::complete_graph;
 pub use self::erdos_renyi::random_gnm_graph;
 pub use self::erdos_renyi::random_gnp_graph;
+pub use self::star::star_graph;

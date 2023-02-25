@@ -33,15 +33,17 @@ use rand::Rng;
 /// [ba]: https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model
 pub fn barabasi_albert_graph<
     R: Rng + ?Sized,
+    N: Default,
+    E: Default,
     Ty: EdgeType,
     Ix: IndexType,
-    G: Into<Option<Graph<(), (), Ty, Ix>>>,
+    G: Into<Option<Graph<N, E, Ty, Ix>>>,
 >(
     rng: &mut R,
     n: usize,
     m: usize,
     initial_graph: G,
-) -> Graph<(), (), Ty, Ix> {
+) -> Graph<N, E, Ty, Ix> {
     assert!(m >= 1, "Parameter m must be greater than 0");
     assert!(m < n, "Parameter m must be less than n");
 
@@ -74,7 +76,7 @@ pub fn barabasi_albert_graph<
     let mut targets = vec![NodeIndex::new(0); m];
 
     for _ in initial_node_count..n {
-        let node = graph.add_node(());
+        let node = graph.add_node(Default::default());
         let uniform_distribution = Uniform::new(0, repeated_nodes.len());
 
         let mut i = 0;
@@ -88,7 +90,7 @@ pub fn barabasi_albert_graph<
             }
         }
         for target in &targets {
-            graph.add_edge(node, *target, ());
+            graph.add_edge(node, *target, Default::default());
             repeated_nodes.push(node);
             repeated_nodes.push(*target);
             picked[target.index()] = false;
